@@ -2,16 +2,16 @@ package handlers
 
 import (
 	"code.google.com/p/goprotobuf/proto"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"git.cloudrack.io/aiw3/np-server/np/reply"
 	"git.cloudrack.io/aiw3/np-server/np/storage"
 	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/protocol/auth"
 	"net"
 )
 
 func RPCAuthenticateWithKeyMessage(conn net.Conn, connection_data *structs.ConnData, packet_data *structs.PacketData) error {
 	// Unmarshal the data
-	msg := new(auth.AuthenticateWithKeyMessage)
+	msg := new(protocol.AuthenticateWithKeyMessage)
 	err := proto.Unmarshal(packet_data.Content, msg)
 	if err != nil {
 		return err
@@ -30,7 +30,7 @@ func RPCAuthenticateWithKeyMessage(conn net.Conn, connection_data *structs.ConnD
 	storage.SetServerConnection(npid, connection_data)
 
 	// Reply with the data
-	return reply.Reply(conn, packet_data.Header.Id, &auth.AuthenticateResultMessage{
+	return reply.Reply(conn, packet_data.Header.Id, &protocol.AuthenticateResultMessage{
 		Result:       proto.Int32(0),
 		Npid:         proto.Uint64(npid),
 		SessionToken: []byte(""),

@@ -3,8 +3,8 @@ package handlers
 import (
 	"code.google.com/p/goprotobuf/proto"
 	"git.cloudrack.io/aiw3/np-server/np/aci"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/protocol/storage"
 	"github.com/pzduniak/logger"
 	"net"
 	"strings"
@@ -33,7 +33,7 @@ func handlePortAnnounced(
 
 func RPCStorageSendRandomStringMessage(conn net.Conn, connection_data *structs.ConnData, packet_data *structs.PacketData) error {
 	// Parse the message
-	msg := new(storage.StorageSendRandomStringMessage)
+	msg := new(protocol.StorageSendRandomStringMessage)
 	err := proto.Unmarshal(packet_data.Content, msg)
 	if err != nil {
 		return err

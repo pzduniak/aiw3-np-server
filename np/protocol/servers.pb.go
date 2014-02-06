@@ -2,7 +2,7 @@
 // source: servers.proto
 // DO NOT EDIT!
 
-package servers
+package protocol
 
 import proto "code.google.com/p/goprotobuf/proto"
 import json "encoding/json"

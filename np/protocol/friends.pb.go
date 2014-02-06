@@ -2,7 +2,7 @@
 // source: friends.proto
 // DO NOT EDIT!
 
-package friends
+package protocol
 
 import proto "code.google.com/p/goprotobuf/proto"
 import json "encoding/json"

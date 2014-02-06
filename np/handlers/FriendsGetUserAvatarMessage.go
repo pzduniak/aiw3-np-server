@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"code.google.com/p/goprotobuf/proto"
 	"git.cloudrack.io/aiw3/np-server/environment"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"git.cloudrack.io/aiw3/np-server/np/reply"
 	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/protocol/friends"
 	"github.com/ftrvxmtrx/gravatar"
 	//"github.com/pmylund/go-cache"
 	//"github.com/pzduniak/logger"
@@ -36,7 +36,7 @@ func init() {
 
 func RPCFriendsGetUserAvatarMessage(conn net.Conn, connection_data *structs.ConnData, packet_data *structs.PacketData) error {
 	// Unmarshal the message
-	msg := new(friends.FriendsGetUserAvatarMessage)
+	msg := new(protocol.FriendsGetUserAvatarMessage)
 	err := proto.Unmarshal(packet_data.Content, msg)
 	if err != nil {
 		return err
@@ -58,7 +58,7 @@ func RPCFriendsGetUserAvatarMessage(conn net.Conn, connection_data *structs.Conn
 	if ok {
 		//logger.Errorf("Getting %d avatar from cache", msg.GetGuid())
 
-		return reply.Reply(conn, packet_data.Header.Id, &friends.FriendsGetUserAvatarResultMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.FriendsGetUserAvatarResultMessage{
 			Result:   proto.Int32(0),
 			Guid:     msg.Guid,
 			FileData: cached,
@@ -154,7 +154,7 @@ WHERE
 		//avatarCache.Set(strconv.Itoa(int(msg.GetGuid())), filecontents, -1)
 
 		// Return it to the client
-		return reply.Reply(conn, packet_data.Header.Id, &friends.FriendsGetUserAvatarResultMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.FriendsGetUserAvatarResultMessage{
 			Result:   proto.Int32(0),
 			Guid:     msg.Guid,
 			FileData: filecontents,
@@ -173,7 +173,7 @@ WHERE
 		avatarCache[msg.GetGuid()] = data
 
 		// Return it to the client
-		return reply.Reply(conn, packet_data.Header.Id, &friends.FriendsGetUserAvatarResultMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.FriendsGetUserAvatarResultMessage{
 			Result:   proto.Int32(0),
 			Guid:     msg.Guid,
 			FileData: data,
