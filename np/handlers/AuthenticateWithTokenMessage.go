@@ -4,10 +4,10 @@ import (
 	"code.google.com/p/goprotobuf/proto"
 	"errors"
 	"git.cloudrack.io/aiw3/np-server/environment"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"git.cloudrack.io/aiw3/np-server/np/reply"
 	"git.cloudrack.io/aiw3/np-server/np/storage"
 	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/protocol/auth"
 	"github.com/pzduniak/logger"
 	"net"
 	"strconv"
@@ -19,7 +19,7 @@ var WrongIPAddress = errors.New("Wrong IP address")
 
 func RPCAuthenticateWithTokenMessage(conn net.Conn, connection_data *structs.ConnData, packet_data *structs.PacketData) error {
 	// Unmarshal the data
-	msg := new(auth.AuthenticateWithTokenMessage)
+	msg := new(protocol.AuthenticateWithTokenMessage)
 	err := proto.Unmarshal(packet_data.Content, msg)
 	if err != nil {
 		return err
@@ -71,7 +71,7 @@ func RPCAuthenticateWithTokenMessage(conn net.Conn, connection_data *structs.Con
 	storage.SetClientConnection(npid, connection_data)
 
 	// Return a response
-	err = reply.Reply(conn, packet_data.Header.Id, &auth.AuthenticateResultMessage{
+	err = reply.Reply(conn, packet_data.Header.Id, &protocol.AuthenticateResultMessage{
 		Result:       proto.Int32(0),
 		Npid:         &npid,
 		SessionToken: msg.Token,
@@ -82,7 +82,7 @@ func RPCAuthenticateWithTokenMessage(conn net.Conn, connection_data *structs.Con
 
 	// No idea what this thing is supposed to do
 	time.AfterFunc(time.Millisecond*900, func() {
-		err = reply.Reply(conn, 0, &auth.AuthenticateExternalStatusMessage{
+		err = reply.Reply(conn, 0, &protocol.AuthenticateExternalStatusMessage{
 			Status: proto.Int32(0),
 		})
 

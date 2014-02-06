@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"code.google.com/p/goprotobuf/proto"
 	"encoding/binary"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"git.cloudrack.io/aiw3/np-server/np/reply"
 	"git.cloudrack.io/aiw3/np-server/np/storage"
 	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/protocol/auth"
 	//"git.cloudrack.io/aiw3/np-server/utils"
 	//"github.com/pzduniak/logger"
 	"net"
@@ -16,7 +16,7 @@ import (
 
 func RPCAuthenticateValidateTicketMessage(conn net.Conn, connection_data *structs.ConnData, packet_data *structs.PacketData) error {
 	// Unmarshal the data
-	msg := new(auth.AuthenticateValidateTicketMessage)
+	msg := new(protocol.AuthenticateValidateTicketMessage)
 	err := proto.Unmarshal(packet_data.Content, msg)
 	if err != nil {
 		return err
@@ -71,7 +71,7 @@ func RPCAuthenticateValidateTicketMessage(conn net.Conn, connection_data *struct
 
 			// Make sure that the IDs are valid
 			if session.Npid != clientId {
-				return reply.Reply(conn, packet_data.Header.Id, &auth.AuthenticateValidateTicketResultMessage{
+				return reply.Reply(conn, packet_data.Header.Id, &protocol.AuthenticateValidateTicketResultMessage{
 					Result:  proto.Int32(1),
 					Npid:    &clientId,
 					GroupID: proto.Int32(1),
@@ -80,7 +80,7 @@ func RPCAuthenticateValidateTicketMessage(conn net.Conn, connection_data *struct
 
 			// Make sure there's no aCI detection
 			if session.IsUnclean {
-				return reply.Reply(conn, packet_data.Header.Id, &auth.AuthenticateValidateTicketResultMessage{
+				return reply.Reply(conn, packet_data.Header.Id, &protocol.AuthenticateValidateTicketResultMessage{
 					Result:  proto.Int32(1),
 					Npid:    &clientId,
 					GroupID: proto.Int32(1),
@@ -110,7 +110,7 @@ func RPCAuthenticateValidateTicketMessage(conn net.Conn, connection_data *struct
 			})*/
 
 			// Reply that everything is fine
-			return reply.Reply(conn, packet_data.Header.Id, &auth.AuthenticateValidateTicketResultMessage{
+			return reply.Reply(conn, packet_data.Header.Id, &protocol.AuthenticateValidateTicketResultMessage{
 				Result:  proto.Int32(0),
 				Npid:    &clientId,
 				GroupID: proto.Int32(1),
@@ -119,7 +119,7 @@ func RPCAuthenticateValidateTicketMessage(conn net.Conn, connection_data *struct
 	}
 
 	// Wrong version or wrong NPID
-	return reply.Reply(conn, packet_data.Header.Id, &auth.AuthenticateValidateTicketResultMessage{
+	return reply.Reply(conn, packet_data.Header.Id, &protocol.AuthenticateValidateTicketResultMessage{
 		Result:  proto.Int32(1),
 		Npid:    &clientId,
 		GroupID: proto.Int32(1),

@@ -2,7 +2,7 @@
 // source: storage.proto
 // DO NOT EDIT!
 
-package storage
+package protocol
 
 import proto "code.google.com/p/goprotobuf/proto"
 import json "encoding/json"

@@ -5,9 +5,9 @@ import (
 	"code.google.com/p/goprotobuf/proto"
 	"encoding/binary"
 	"git.cloudrack.io/aiw3/np-server/environment"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"git.cloudrack.io/aiw3/np-server/np/reply"
 	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/protocol/storage"
 	"github.com/pzduniak/logger"
 	"github.com/pzduniak/utility"
 	"hash/crc32"
@@ -22,13 +22,13 @@ const STAFF_RANK = 1
 
 func RPCStorageGetUserFileMessage(conn net.Conn, connection_data *structs.ConnData, packet_data *structs.PacketData) error {
 	// Unmarshal the request
-	msg := new(storage.StorageGetUserFileMessage)
+	msg := new(protocol.StorageGetUserFileMessage)
 	err := proto.Unmarshal(packet_data.Content, msg)
 
 	// Reply with an error message if something's wrong
 	if err != nil {
 		logger.Debugf("Error when unpacking a protobuf message; %s", err)
-		return reply.Reply(conn, packet_data.Header.Id, &storage.StorageUserFileMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.StorageUserFileMessage{
 			Result:   proto.Int32(3),
 			FileName: msg.FileName,
 			Npid:     msg.Npid,
@@ -39,7 +39,7 @@ func RPCStorageGetUserFileMessage(conn net.Conn, connection_data *structs.ConnDa
 	// If the user isn't authenticated or has wrong Npid, reply with an error
 	if !connection_data.Authenticated ||
 		connection_data.Npid != msg.GetNpid() {
-		return reply.Reply(conn, packet_data.Header.Id, &storage.StorageUserFileMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.StorageUserFileMessage{
 			Result:   proto.Int32(2),
 			FileName: msg.FileName,
 			Npid:     msg.Npid,
@@ -53,7 +53,7 @@ func RPCStorageGetUserFileMessage(conn net.Conn, connection_data *structs.ConnDa
 
 	// File does not exist, abort the mission
 	if !utility.FileExists(filepath) {
-		return reply.Reply(conn, packet_data.Header.Id, &storage.StorageUserFileMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.StorageUserFileMessage{
 			Result:   proto.Int32(2),
 			FileName: msg.FileName,
 			Npid:     msg.Npid,
@@ -66,7 +66,7 @@ func RPCStorageGetUserFileMessage(conn net.Conn, connection_data *structs.ConnDa
 	if err != nil {
 		// Error? Log to the console and reply with an error message
 		logger.Warningf("Error when reading a file in packet 1102; %s", err)
-		return reply.Reply(conn, packet_data.Header.Id, &storage.StorageUserFileMessage{
+		return reply.Reply(conn, packet_data.Header.Id, &protocol.StorageUserFileMessage{
 			Result:   proto.Int32(3),
 			FileName: msg.FileName,
 			Npid:     msg.Npid,
@@ -110,7 +110,7 @@ func RPCStorageGetUserFileMessage(conn net.Conn, connection_data *structs.ConnDa
 
 	logger.Debugf("Sending file %s to %s", filepath, connection_data.Username)
 
-	return reply.Reply(conn, packet_data.Header.Id, &storage.StorageUserFileMessage{
+	return reply.Reply(conn, packet_data.Header.Id, &protocol.StorageUserFileMessage{
 		Result:   proto.Int32(0),
 		FileName: msg.FileName,
 		Npid:     msg.Npid,
