@@ -1,0 +1,35 @@
+[database]
+driver="mysql"                                                           # Connection driver
+connection_string="username:password@tcp(ip:port)/dbname?parseTime=true" # Connection data
+
+[redis]
+address="redis ip"        # Address of the redis server
+password="redis password" # Password to the Redis server
+database=1                # ID of the database used for cache
+
+[np]
+enabled=true                             # Enable the NP server?
+binding_address=":3036"                  # Address that the NP server binds to
+user_files_path="./data/user"            # Path to the userfiles
+pub_files_path="./data/pub"              # Path to where the publisher files are
+avatars_path="path to avatars directory" # Misago's /media/avatars
+anticheat_key_path="path to aci3 key"    # Path to the aCI3 key
+anticheat_instant=true                   # Only true works. Was a planned feature.
+
+[new_relic]
+enabled=false                              # Enable feeding data to NewRelic
+verbose=false                              # Spam some stuff
+license="newrelic license"                 # NewRelic license key
+name="name that will show up in the panel" # NewRelic name
+
+[http]
+enabled=true             # Enable the http server?
+binding_address=":12003" # Bind to :12003
+
+[ftp]
+enabled=false             # Enable FTP
+hostname="your-public-ip" # Public hostname
+port=21                   # Port that is used for FTP
+path="./data"             # Path of the root FTP directory
+username="username"       # Username used to log in to the FTP
+password="password"       # Password used to log in to the FTP
