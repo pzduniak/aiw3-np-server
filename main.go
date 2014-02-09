@@ -3,7 +3,6 @@ package main
 import (
 	"git.cloudrack.io/aiw3/np-server/config"
 	"git.cloudrack.io/aiw3/np-server/environment"
-	"git.cloudrack.io/aiw3/np-server/ftp"
 	"git.cloudrack.io/aiw3/np-server/http"
 	//"git.cloudrack.io/aiw3/np-server/misc"
 	"git.cloudrack.io/aiw3/np-server/np"
@@ -81,12 +80,6 @@ func main() {
 	if settings.NP.Enabled {
 		np_server := np.New()
 		go np_server.Start()
-	}
-
-	// FTP server
-	if settings.FTP.Enabled {
-		ftp_server := ftp.New()
-		go ftp_server.Start()
 	}
 
 	// HTTP-based remote authentication form and a simple API
