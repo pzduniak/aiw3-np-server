@@ -6,7 +6,7 @@ import (
 	"git.cloudrack.io/aiw3/np-server/environment"
 	"git.cloudrack.io/aiw3/np-server/np/reply"
 	"git.cloudrack.io/aiw3/np-server/np/storage"
-	"git.cloudrack.io/aiw3/np-server/protocol/auth"
+	"git.cloudrack.io/aiw3/np-server/np/protocol"
 	"github.com/pzduniak/logger"
 	"strconv"
 	"time"
@@ -40,7 +40,7 @@ func KickUser(serverID uint64, clientID uint64, reason int64) error {
 	data := storage.GetServerConnection(serverID)
 
 	if data != nil {
-		return reply.Reply(data.Connection, 0, &auth.AuthenticateKickUserMessage{
+		return reply.Reply(data.Connection, 0, &protocol.AuthenticateKickUserMessage{
 			Npid:         proto.Uint64(clientID),
 			Reason:       proto.Int32(1),
 			ReasonString: proto.String("Cheat detected (" + strconv.FormatInt(reason, 10) + ")"),
