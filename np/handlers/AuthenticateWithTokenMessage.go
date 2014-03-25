@@ -49,7 +49,7 @@ func RPCAuthenticateWithTokenMessage(conn net.Conn, connection_data *structs.Con
 		return err
 	}
 
-	// Format is: ip;rank
+	// Format is: ip;rank;username
 	sess_parts := strings.Split(sess_string, ";")
 
 	// Verify that user has the same IP as the one used to log in
