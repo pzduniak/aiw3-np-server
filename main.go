@@ -1,14 +1,14 @@
 package main
 
 import (
-	"git.cloudrack.io/aiw3/np-server/config"
-	"git.cloudrack.io/aiw3/np-server/environment"
-	"git.cloudrack.io/aiw3/np-server/http"
-	//"git.cloudrack.io/aiw3/np-server/misc"
-	"git.cloudrack.io/aiw3/np-server/np"
-	"git.cloudrack.io/aiw3/np-server/np/aci"
+	"github.com/pzduniak/aiw3-np-server/config"
+	"github.com/pzduniak/aiw3-np-server/environment"
+	"github.com/pzduniak/aiw3-np-server/http"
+	//"github.com/pzduniak/aiw3-np-server/misc"
+	"github.com/pzduniak/aiw3-np-server/np"
+	"github.com/pzduniak/aiw3-np-server/np/aci"
 	"github.com/yvasiyarov/gorelic"
-	//"git.cloudrack.io/aiw3/np-server/playerlog"
+	//"github.com/pzduniak/aiw3-np-server/playerlog"
 	"github.com/eaigner/jet"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/pzduniak/logger"

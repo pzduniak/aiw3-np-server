@@ -1,9 +1,9 @@
 package aci
 
 import (
-	"git.cloudrack.io/aiw3/np-server/environment"
-	"git.cloudrack.io/aiw3/np-server/np/structs"
-	"git.cloudrack.io/aiw3/np-server/utils"
+	"github.com/pzduniak/aiw3-np-server/environment"
+	"github.com/pzduniak/aiw3-np-server/np/structs"
+	"github.com/pzduniak/aiw3-np-server/utils"
 	"github.com/pzduniak/logger"
 	"net"
 	"strconv"

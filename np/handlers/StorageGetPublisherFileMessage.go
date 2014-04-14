@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"code.google.com/p/goprotobuf/proto"
-	"git.cloudrack.io/aiw3/np-server/environment"
-	"git.cloudrack.io/aiw3/np-server/np/protocol"
-	"git.cloudrack.io/aiw3/np-server/np/reply"
-	"git.cloudrack.io/aiw3/np-server/np/structs"
+	"github.com/pzduniak/aiw3-np-server/environment"
+	"github.com/pzduniak/aiw3-np-server/np/protocol"
+	"github.com/pzduniak/aiw3-np-server/np/reply"
+	"github.com/pzduniak/aiw3-np-server/np/structs"
 	"github.com/pzduniak/logger"
 	"github.com/pzduniak/utility"
 	"io/ioutil"

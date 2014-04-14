@@ -5,7 +5,7 @@ import (
 	"code.google.com/p/goprotobuf/proto"
 	"encoding/binary"
 	"errors"
-	"git.cloudrack.io/aiw3/np-server/np/structs"
+	"github.com/pzduniak/aiw3-np-server/np/structs"
 	"github.com/pzduniak/logger"
 	"net"
 	"reflect"

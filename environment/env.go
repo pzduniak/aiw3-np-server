@@ -1,7 +1,7 @@
 package environment
 
 import (
-	"git.cloudrack.io/aiw3/np-server/config"
+	"github.com/pzduniak/aiw3-np-server/config"
 	"github.com/eaigner/jet"
 	"github.com/vmihailenco/redis/v2"
 )

@@ -3,9 +3,9 @@ package np
 import (
 	"bytes"
 	"encoding/binary"
-	"git.cloudrack.io/aiw3/np-server/environment"
-	"git.cloudrack.io/aiw3/np-server/np/storage"
-	"git.cloudrack.io/aiw3/np-server/np/structs"
+	"github.com/pzduniak/aiw3-np-server/environment"
+	"github.com/pzduniak/aiw3-np-server/np/storage"
+	"github.com/pzduniak/aiw3-np-server/np/structs"
 	"github.com/pzduniak/logger"
 	"io"
 	"net"

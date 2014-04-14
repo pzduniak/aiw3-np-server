@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"git.cloudrack.io/aiw3/np-server/np/structs"
+	"github.com/pzduniak/aiw3-np-server/np/structs"
 	"sync"
 )
 
